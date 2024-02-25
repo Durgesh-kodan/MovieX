@@ -1,5 +1,5 @@
 import mongoose ,{Schema} from "mongoose";
-import modelOptions from "./models.options";
+import modelOptions from "./models.options.js";
 
 export default mongoose.model(
     "Review",
