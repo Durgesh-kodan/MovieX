@@ -2,7 +2,15 @@ import { useSelector, useDispatch } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import { AppBar, Box, Button, IconButton, Stack, Toolbar, useScrollTrigger } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  Toolbar,
+  useScrollTrigger,
+} from "@mui/material";
 import { cloneElement, useState } from "react";
 import { Link } from "react-router-dom";
 import menuConfigs from "../../configs/menu.configs";
@@ -19,14 +27,22 @@ const ScrollAppBar = ({ children, window }) => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 50,
-    target: window ? window() : undefined
+    target: window ? window() : undefined,
   });
 
   return cloneElement(children, {
     sx: {
-      color: trigger ? "text.primary" : themeMode === themeModes.dark ? "primary.contrastText" : "text.primary",
-      backgroundColor: trigger ? "background.paper" : themeMode === themeModes.dark ? "transparent" : "background.paper"
-    }
+      color: trigger
+        ? "text.primary"
+        : themeMode === themeModes.dark
+        ? "primary.contrastText"
+        : "text.primary",
+      backgroundColor: trigger
+        ? "background.paper"
+        : themeMode === themeModes.dark
+        ? "transparent"
+        : "background.paper",
+    },
   });
 };
 const Topbar = () => {
@@ -39,7 +55,8 @@ const Topbar = () => {
   const dispatch = useDispatch();
 
   const onSwithTheme = () => {
-    const theme = themeMode === themeModes.dark ? themeModes.light : themeModes.dark;
+    const theme =
+      themeMode === themeModes.dark ? themeModes.light : themeModes.dark;
     dispatch(setThemeMode(theme));
   };
 
@@ -50,7 +67,9 @@ const Topbar = () => {
       <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
       <ScrollAppBar>
         <AppBar elevation={0} sx={{ zIndex: 9999 }}>
-          <Toolbar sx={{ alignItems: "center", justifyContent: "space-between" }}>
+          <Toolbar
+            sx={{ alignItems: "center", justifyContent: "space-between" }}
+          >
             <Stack direction="row" spacing={1} alignItems="center">
               <IconButton
                 color="inherit"
@@ -66,7 +85,11 @@ const Topbar = () => {
             </Stack>
 
             {/* main menu */}
-            <Box flexGrow={1} alignItems="center" display={{ xs: "none", md: "flex" }}>
+            <Box
+              flexGrow={1}
+              alignItems="center"
+              display={{ xs: "none", md: "flex" }}
+            >
               <Box sx={{ marginRight: "30px" }}>
                 <Logo />
               </Box>
@@ -74,8 +97,10 @@ const Topbar = () => {
                 <Button
                   key={index}
                   sx={{
-                    color: appState.includes(item.state) ? "primary.contrastText" : "inherit",
-                    mr: 2
+                    color: appState.includes(item.state)
+                      ? "primary.contrastText"
+                      : "inherit",
+                    mr: 2,
                   }}
                   component={Link}
                   to={item.path}
@@ -84,10 +109,7 @@ const Topbar = () => {
                   {item.display}
                 </Button>
               ))}
-              <IconButton
-                sx={{ color: "inherit" }}
-                onClick={onSwithTheme}
-              >
+              <IconButton sx={{ color: "inherit" }} onClick={onSwithTheme}>
                 {themeMode === themeModes.dark && <DarkModeOutlinedIcon />}
                 {themeMode === themeModes.light && <WbSunnyOutlinedIcon />}
               </IconButton>
@@ -96,12 +118,14 @@ const Topbar = () => {
 
             {/* user menu */}
             <Stack spacing={3} direction="row" alignItems="center">
-              {!user && <Button
-                variant="contained"
-                onClick={() => dispatch(setAuthModalOpen(true))}
-              >
-                sign in
-              </Button>}
+              {!user && (
+                <Button
+                  variant="contained"
+                  onClick={() => dispatch(setAuthModalOpen(true))}
+                >
+                  sign in
+                </Button>
+              )}
             </Stack>
             {user && <UserMenu />}
             {/* user menu */}

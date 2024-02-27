@@ -13,7 +13,7 @@ const MediaSlide = ({ mediaType, mediaCategory }) => {
       const { response, err } = await mediaApi.getList({
         mediaType,
         mediaCategory,
-        page: 1
+        page: 1,
       });
 
       if (response) setMedias(response.results);

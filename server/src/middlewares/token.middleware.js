@@ -7,7 +7,7 @@ const tokenDecode = (req) => {
     const bearedHeader = req.headers["authorization"];
     if (bearedHeader) {
       const token = bearedHeader.split(" ")[1];
-      return jsonwebtoken.verify(token, process.env.TOKEN_SECRET);
+      return jsonwebtoken.verify(token, process.env.TOKEN_SECRET_KEY);
     }
 
     return false;

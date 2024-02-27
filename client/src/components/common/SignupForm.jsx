@@ -20,7 +20,7 @@ const SignupForm = ({ switchAuthState }) => {
       password: "",
       username: "",
       displayName: "",
-      confirmPassword: ""
+      confirmPassword: "",
     },
     validationSchema: Yup.object({
       username: Yup.string()
@@ -35,9 +35,9 @@ const SignupForm = ({ switchAuthState }) => {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref("password")], "confirmPassword not match")
         .min(8, "confirmPassword minimum 8 characters")
-        .required("confirmPassword is required")
+        .required("confirmPassword is required"),
     }),
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       setErrorMessage(undefined);
       setIsLoginRequest(true);
       console.log("asdasdasdasd");
@@ -52,7 +52,7 @@ const SignupForm = ({ switchAuthState }) => {
       }
 
       if (err) setErrorMessage(err.message);
-    }
+    },
   });
 
   return (
@@ -66,7 +66,10 @@ const SignupForm = ({ switchAuthState }) => {
           value={signinForm.values.username}
           onChange={signinForm.handleChange}
           color="success"
-          error={signinForm.touched.username && signinForm.errors.username !== undefined}
+          error={
+            signinForm.touched.username &&
+            signinForm.errors.username !== undefined
+          }
           helperText={signinForm.touched.username && signinForm.errors.username}
         />
         <TextField
@@ -77,8 +80,13 @@ const SignupForm = ({ switchAuthState }) => {
           value={signinForm.values.displayName}
           onChange={signinForm.handleChange}
           color="success"
-          error={signinForm.touched.displayName && signinForm.errors.displayName !== undefined}
-          helperText={signinForm.touched.displayName && signinForm.errors.displayName}
+          error={
+            signinForm.touched.displayName &&
+            signinForm.errors.displayName !== undefined
+          }
+          helperText={
+            signinForm.touched.displayName && signinForm.errors.displayName
+          }
         />
         <TextField
           type="password"
@@ -88,7 +96,10 @@ const SignupForm = ({ switchAuthState }) => {
           value={signinForm.values.password}
           onChange={signinForm.handleChange}
           color="success"
-          error={signinForm.touched.password && signinForm.errors.password !== undefined}
+          error={
+            signinForm.touched.password &&
+            signinForm.errors.password !== undefined
+          }
           helperText={signinForm.touched.password && signinForm.errors.password}
         />
         <TextField
@@ -99,8 +110,14 @@ const SignupForm = ({ switchAuthState }) => {
           value={signinForm.values.confirmPassword}
           onChange={signinForm.handleChange}
           color="success"
-          error={signinForm.touched.confirmPassword && signinForm.errors.confirmPassword !== undefined}
-          helperText={signinForm.touched.confirmPassword && signinForm.errors.confirmPassword}
+          error={
+            signinForm.touched.confirmPassword &&
+            signinForm.errors.confirmPassword !== undefined
+          }
+          helperText={
+            signinForm.touched.confirmPassword &&
+            signinForm.errors.confirmPassword
+          }
         />
       </Stack>
 
@@ -115,17 +132,15 @@ const SignupForm = ({ switchAuthState }) => {
         sign up
       </LoadingButton>
 
-      <Button
-        fullWidth
-        sx={{ marginTop: 1 }}
-        onClick={() => switchAuthState()}
-      >
+      <Button fullWidth sx={{ marginTop: 1 }} onClick={() => switchAuthState()}>
         sign in
       </Button>
 
       {errorMessage && (
         <Box sx={{ marginTop: 2 }}>
-          <Alert severity="error" variant="outlined" >{errorMessage}</Alert>
+          <Alert severity="error" variant="outlined">
+            {errorMessage}
+          </Alert>
         </Box>
       )}
     </Box>

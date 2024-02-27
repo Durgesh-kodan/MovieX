@@ -14,9 +14,7 @@ const PageWrapper = ({ state, children }) => {
     dispatch(setAppState(state));
   }, [state, dispatch]);
 
-  return (
-    children
-  );
+  return children;
 };
 
 export default PageWrapper;

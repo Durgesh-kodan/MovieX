@@ -19,7 +19,9 @@ const FavoriteItem = ({ media, onRemoved }) => {
   const onRemove = async () => {
     if (onRequest) return;
     setOnRequest(true);
-    const { response, err } = await favoriteApi.remove({ favoriteId: media.id });
+    const { response, err } = await favoriteApi.remove({
+      favoriteId: media.id,
+    });
     setOnRequest(false);
 
     if (err) toast.error(err.message);
@@ -30,20 +32,22 @@ const FavoriteItem = ({ media, onRemoved }) => {
     }
   };
 
-  return (<>
-    <MediaItem media={media} mediaType={media.mediaType} />
-    <LoadingButton
-      fullWidth
-      variant="contained"
-      sx={{ marginTop: 2 }}
-      startIcon={<DeleteIcon />}
-      loadingPosition="start"
-      loading={onRequest}
-      onClick={onRemove}
-    >
-      remove
-    </LoadingButton>
-  </>);
+  return (
+    <>
+      <MediaItem media={media} mediaType={media.mediaType} />
+      <LoadingButton
+        fullWidth
+        variant="contained"
+        sx={{ marginTop: 2 }}
+        startIcon={<DeleteIcon />}
+        loadingPosition="start"
+        loading={onRequest}
+        onClick={onRemove}
+      >
+        remove
+      </LoadingButton>
+    </>
+  );
 };
 
 const FavoriteList = () => {
@@ -71,15 +75,18 @@ const FavoriteList = () => {
     };
 
     getFavorites();
-  }, []);
+  });
 
   const onLoadMore = () => {
-    setFilteredMedias([...filteredMedias, ...[...medias].splice(page * skip, skip)]);
+    setFilteredMedias([
+      ...filteredMedias,
+      ...[...medias].splice(page * skip, skip),
+    ]);
     setPage(page + 1);
   };
 
   const onRemoved = (id) => {
-    const newMedias = [...medias].filter(e => e.id !== id);
+    const newMedias = [...medias].filter((e) => e.id !== id);
     setMedias(newMedias);
     setFilteredMedias([...newMedias].splice(0, page * skip));
     setCount(count - 1);

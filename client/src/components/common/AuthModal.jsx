@@ -8,7 +8,7 @@ import SignupForm from "./SignupForm";
 
 const actionState = {
   signin: "signin",
-  signup: "signup"
+  signup: "signup",
 };
 
 const AuthModal = () => {
@@ -28,24 +28,40 @@ const AuthModal = () => {
 
   return (
     <Modal open={authModalOpen} onClose={handleClose}>
-      <Box sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "100%",
-        maxWidth: "600px",
-        padding: 4,
-        outline: "none"
-      }}>
-        <Box sx={{ padding: 4, boxShadow: 24, backgroundColor: "background.paper" }}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "100%",
+          maxWidth: "600px",
+          padding: 4,
+          outline: "none",
+        }}
+      >
+        <Box
+          sx={{
+            padding: 4,
+            boxShadow: 24,
+            backgroundColor: "background.paper",
+          }}
+        >
           <Box sx={{ textAlign: "center", marginBottom: "2rem" }}>
             <Logo />
           </Box>
 
-          {action === actionState.signin && <SigninForm switchAuthState={() => switchAuthState(actionState.signup)} />}
+          {action === actionState.signin && (
+            <SigninForm
+              switchAuthState={() => switchAuthState(actionState.signup)}
+            />
+          )}
 
-          {action === actionState.signup && <SignupForm switchAuthState={() => switchAuthState(actionState.signin)} />}
+          {action === actionState.signup && (
+            <SignupForm
+              switchAuthState={() => switchAuthState(actionState.signin)}
+            />
+          )}
         </Box>
       </Box>
     </Modal>

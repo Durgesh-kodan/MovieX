@@ -30,30 +30,38 @@ const ReviewItem = ({ review, onRemoved }) => {
   };
 
   return (
-    <Box sx={{
-      position: "relative",
-      display: "flex",
-      flexDirection: { xs: "column", md: "row" },
-      padding: 1,
-      opacity: onRequest ? 0.6 : 1,
-      "&:hover": { backgroundColor: "background.paper" }
-    }}>
+    <Box
+      sx={{
+        position: "relative",
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        padding: 1,
+        opacity: onRequest ? 0.6 : 1,
+        "&:hover": { backgroundColor: "background.paper" },
+      }}
+    >
       <Box sx={{ width: { xs: 0, md: "10%" } }}>
         <Link
           to={routesGen.mediaDetail(review.mediaType, review.mediaid)}
           style={{ color: "unset", textDecoration: "none" }}
         >
-          <Box sx={{
-            paddingTop: "160%",
-            ...uiConfigs.style.backgroundImage(tmdbConfigs.posterPath(review.mediaPoster))
-          }} />
+          <Box
+            sx={{
+              paddingTop: "160%",
+              ...uiConfigs.style.backgroundImage(
+                tmdbConfigs.posterPath(review.mediaPoster)
+              ),
+            }}
+          />
         </Link>
       </Box>
 
-      <Box sx={{
-        width: { xs: "100%", md: "80%" },
-        padding: { xs: 0, md: "0 2rem" }
-      }}>
+      <Box
+        sx={{
+          width: { xs: "100%", md: "80%" },
+          padding: { xs: 0, md: "0 2rem" },
+        }}
+      >
         <Stack spacing={1}>
           <Link
             to={routesGen.mediaDetail(review.mediaType, review.mediaid)}
@@ -79,7 +87,7 @@ const ReviewItem = ({ review, onRemoved }) => {
           position: { xs: "relative", md: "absolute" },
           right: { xs: 0, md: "10px" },
           marginTop: { xs: 2, md: 0 },
-          width: "max-content"
+          width: "max-content",
         }}
         startIcon={<DeleteIcon />}
         loadingPosition="start"
@@ -117,16 +125,19 @@ const ReviewList = () => {
     };
 
     getReviews();
-  }, []);
+  });
 
   const onLoadMore = () => {
-    setFilteredReviews([...filteredReviews, ...[...reviews].splice(page * skip, skip)]);
+    setFilteredReviews([
+      ...filteredReviews,
+      ...[...reviews].splice(page * skip, skip),
+    ]);
     setPage(page + 1);
   };
 
   const onRemoved = (id) => {
     console.log({ reviews });
-    const newReviews = [...reviews].filter(e => e.id !== id);
+    const newReviews = [...reviews].filter((e) => e.id !== id);
     console.log({ newReviews });
     setReviews(newReviews);
     setFilteredReviews([...newReviews].splice(0, page * skip));
@@ -140,9 +151,11 @@ const ReviewList = () => {
           {filteredReviews.map((item) => (
             <Box key={item.id}>
               <ReviewItem review={item} onRemoved={onRemoved} />
-              <Divider sx={{
-                display: { xs: "block", md: "none" }
-              }} />
+              <Divider
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              />
             </Box>
           ))}
           {filteredReviews.length < reviews.length && (

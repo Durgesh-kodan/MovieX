@@ -1,5 +1,12 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Divider, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -26,13 +33,15 @@ const ReviewItem = ({ review, onRemoved }) => {
   };
 
   return (
-    <Box sx={{
-      padding: 2,
-      borderRadius: "5px",
-      position: "relative",
-      opacity: onRequest ? 0.6 : 1,
-      "&:hover": { backgroundColor: "background.paper" }
-    }}>
+    <Box
+      sx={{
+        padding: 2,
+        borderRadius: "5px",
+        position: "relative",
+        opacity: onRequest ? 0.6 : 1,
+        "&:hover": { backgroundColor: "background.paper" },
+      }}
+    >
       <Stack direction="row" spacing={2}>
         {/* avatar */}
         <TextAvatar text={review.user?.displayName} />
@@ -60,7 +69,7 @@ const ReviewItem = ({ review, onRemoved }) => {
                 position: { xs: "relative", md: "absolute" },
                 right: { xs: 0, md: "10px" },
                 marginTop: { xs: 2, md: 0 },
-                width: "max-content"
+                width: "max-content",
               }}
             >
               remove
@@ -98,7 +107,7 @@ const MediaReview = ({ reviews, media, mediaType }) => {
       mediaId: media.id,
       mediaType,
       mediaTitle: media.title || media.name,
-      mediaPoster: media.poster_path
+      mediaPoster: media.poster_path,
     };
 
     const { response, err } = await reviewApi.add(body);
@@ -116,17 +125,20 @@ const MediaReview = ({ reviews, media, mediaType }) => {
   };
 
   const onLoadMore = () => {
-    setFilteredReviews([...filteredReviews, ...[...listReviews].splice(page * skip, skip)]);
+    setFilteredReviews([
+      ...filteredReviews,
+      ...[...listReviews].splice(page * skip, skip),
+    ]);
     setPage(page + 1);
   };
 
   const onRemoved = (id) => {
-    if (listReviews.findIndex(e => e.id === id) !== -1) {
-      const newListReviews = [...listReviews].filter(e => e.id !== id);
+    if (listReviews.findIndex((e) => e.id === id) !== -1) {
+      const newListReviews = [...listReviews].filter((e) => e.id !== id);
       setListReviews(newListReviews);
       setFilteredReviews([...newListReviews].splice(0, page * skip));
     } else {
-      setFilteredReviews([...filteredReviews].filter(e => e.id !== id));
+      setFilteredReviews([...filteredReviews].filter((e) => e.id !== id));
     }
 
     setReviewCount(reviewCount - 1);
@@ -138,14 +150,18 @@ const MediaReview = ({ reviews, media, mediaType }) => {
     <>
       <Container header={`Reviews (${reviewCount})`}>
         <Stack spacing={4} marginBottom={2}>
-          {filteredReviews.map((item) => (
-            item.user ? <Box key={item.id}>
-              <ReviewItem review={item} onRemoved={onRemoved} />
-              <Divider sx={{
-                display: { xs: "block", md: "none" }
-              }} />
-            </Box> : null
-          ))}
+          {filteredReviews.map((item) =>
+            item.user ? (
+              <Box key={item.id}>
+                <ReviewItem review={item} onRemoved={onRemoved} />
+                <Divider
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                  }}
+                />
+              </Box>
+            ) : null
+          )}
           {filteredReviews.length < listReviews.length && (
             <Button onClick={onLoadMore}>load more</Button>
           )}

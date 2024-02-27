@@ -26,7 +26,7 @@ const PersonDetail = () => {
     };
 
     getPerson();
-  }, [personId]);
+  });
 
   return (
     <>
@@ -34,30 +34,43 @@ const PersonDetail = () => {
       {person && (
         <>
           <Box sx={{ ...uiConfigs.style.mainContent }}>
-            <Box sx={{
-              position: "relative",
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" }
-            }}>
-              <Box sx={{
-                width: { xs: "50%", md: "20%" }
-              }}>
-                <Box sx={{
-                  paddingTop: "160%",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundColor: "darkgrey",
-                  backgroundImage: `url(${tmdbConfigs.posterPath(person.profile_path)})`
-                }} />
+            <Box
+              sx={{
+                position: "relative",
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+              }}
+            >
+              <Box
+                sx={{
+                  width: { xs: "50%", md: "20%" },
+                }}
+              >
+                <Box
+                  sx={{
+                    paddingTop: "160%",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundColor: "darkgrey",
+                    backgroundImage: `url(${tmdbConfigs.posterPath(
+                      person.profile_path
+                    )})`,
+                  }}
+                />
               </Box>
-              <Box sx={{
-                width: { xs: "100%", md: "80%" },
-                padding: { xs: "1rem 0", md: "1rem 2rem" }
-              }}>
+              <Box
+                sx={{
+                  width: { xs: "100%", md: "80%" },
+                  padding: { xs: "1rem 0", md: "1rem 2rem" },
+                }}
+              >
                 <Stack spacing={2}>
                   <Typography variant="h5" fontWeight="700">
-                    {`${person.name} (${person.birthday && person.birthday.split("-")[0]}`}
-                    {person.deathday && ` - ${person.deathday && person.deathday.split("-")[0]}`}
+                    {`${person.name} (${
+                      person.birthday && person.birthday.split("-")[0]
+                    }`}
+                    {person.deathday &&
+                      ` - ${person.deathday && person.deathday.split("-")[0]}`}
                     {")"}
                   </Typography>
                   <Typography sx={{ ...uiConfigs.style.typoLines(10) }}>
